@@ -15,22 +15,24 @@ date_formated = one_year_from_now.strftime("%d/%m/%Y")
 
 
 def callback(input):
-    if input.isdigit():
+    if input == "":
         return True
-
-    elif input is "":
-        return True
-    else:
+    try:
+        input = float(input)
+    except ValueError:
         return False
+    else:
+        return True
 
-
-def convert1(from_country_var, to_country_var, amount=1):
+    
+def convert1(from_country_var, to_country_var, amount=1.0):
     c_amount = c.convert(from_country_var, to_country_var, amount)
     tk.Label(root1, fg="DeepPink2", bg="misty rose",
              text=f" {amount} {from_country_var} equals ", width=30, font=("Courier", 15)).grid(row=0, column=0)
     tk.Label(root1, fg="DeepPink2", bg="misty rose",
              text=f" {c_amount} {to_country_var}", width=30, font=("Courier", 20)).grid(row=1, column=0)
     return c_amount
+
 
 def convert(event):
     from_country_var = codes[names.index(from_country.get())]
@@ -92,9 +94,9 @@ if __name__ == "__main__":
     root.title("CURRENCY CONVERTER")
     root.configure(background='lavender blush')
 
-    from_country_label = tk.Label(root, text="From Country: ", bg="misty rose", fg="DeepPink2")
+    from_country_label = tk.Label(root, text="From Currency: ", bg="misty rose", fg="DeepPink2")
 
-    to_country_label = tk.Label(root, text="To Country: ", bg="misty rose", fg="DeepPink2")
+    to_country_label = tk.Label(root, text="To Currency: ", bg="misty rose", fg="DeepPink2")
 
     amount_label = tk.Label(root, text="Actual Amount: ", bg="misty rose", fg="DeepPink2")
 
@@ -125,7 +127,7 @@ if __name__ == "__main__":
     # Entry box for converted amount
     converted_amount_entry = ttk.Entry(root, width=33)
     #  creating gui
-    tk.Label(root, text="REAL TIME CURRENCY CONVERTER", fg="magenta4", bg="plum1", 
+    tk.Label(root, text="REAL TIME CURRENCY CONVERTER", fg="magenta4", bg="plum1",
              font=("Courier", 20)).grid(row=0, columnspan=5, padx=25, pady=5)
     tk.Label(root, text="DATE: " + str(date_formated) + "        " + "TIME: " + str(time.strftime("%H:%M:%S")),
              fg="maroon4",
